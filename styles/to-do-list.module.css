@@ -1,0 +1,19 @@
+.container{
+    height: calc(100vh - 60px);
+    display: flex;
+    padding: 10px 20px;
+}
+
+.section{
+    flex: 1;
+}
+
+.todo{
+    /* background-color: aquamarine; */
+}
+
+.sectionTitle{
+    font-size: 20px;
+    text-align: center;
+    font-weight: 600;
+}
