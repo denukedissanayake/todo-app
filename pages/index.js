@@ -2,6 +2,7 @@ import { METHODS } from 'http';
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import Navbar from '../components/navigation-bar'
 
 export default function Home() {
 
@@ -10,7 +11,6 @@ export default function Home() {
       <Head>
         <title>Todo | App</title>
       </Head>
-      <div>Todo - App</div>
     </>
   )
 }

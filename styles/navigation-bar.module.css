@@ -1,0 +1,20 @@
+.container{
+    display: flex;
+    height: 60px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 20px;
+    z-index: 999;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.buttonslist{
+    display: flex;
+}
+
+.button{
+    margin: auto 10px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
