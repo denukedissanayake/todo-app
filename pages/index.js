@@ -9,7 +9,7 @@ export default function Home() {
       <Head>
         <title>Todo | App</title>
       </Head>
-      <TodoList/>
+      <TodoList />
     </>
   )
 }
