@@ -1,14 +1,14 @@
 import styles from '../styles/to-do-item.module.css';
 
-const TodoItem = ({ item }) => {
+const TodoItem = ({ item, editTask, deletetask }) => {
     return (
         <div className={styles.itemContainer}>
             <div className={styles.task}>
                 <label className={styles.taskTitle}>{item.task}</label>
             </div>
             <div className={styles.taskAction}>
-                <button className={styles.taskButton}>EDIT</button>
-                <button className={styles.taskButton}>DELETE</button>
+                <button className={styles.taskButton} onClick={editTask}>EDIT</button>
+                <button className={styles.taskButton} onClick={() => deletetask(item.id)}>DELETE</button>
                 {item.status === "TODO" && <span className={styles.taskProgress}>
                     <input type="checkbox" name="status" value="Ongoing" onChange={(e) => { console.log(e.target.value) }} />
                     START
