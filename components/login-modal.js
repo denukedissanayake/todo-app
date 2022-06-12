@@ -19,8 +19,7 @@ const LoginModal = ({ setShowLoginsModal, fetchTasks }) => {
                 })
             });
             const data = await res.json();
-            console.log(data)
-            // setUser({token: data})
+            setUser({token: data})
             setShowLoginsModal(false)
         } catch (err) {
             console.log(err);

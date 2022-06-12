@@ -3,12 +3,17 @@ import styles from '../styles/navigation-bar.module.css';
 const { useAuth } = require('../context/auth-context');
 
 const Navbar = ({ showAddTaskModal, setShowLoginsModal, setShowSignupModal }) => {
-    const { user } = useAuth();
+    const { user, setUser } = useAuth();
     const [auth, setAuth] = useState(false)
 
     useEffect(() => {
         user ? setAuth(true) : setAuth(false)
     })
+
+    const logout = () => {
+        localStorage.removeItem('user');
+        setUser(undefined)
+    }
 
     return (
         <>
@@ -20,7 +25,7 @@ const Navbar = ({ showAddTaskModal, setShowLoginsModal, setShowSignupModal }) =>
                     {auth && <p className={styles.button} onClick={() => showAddTaskModal(true)}>ADD TASK</p>}
                     {!auth && <p className={styles.button} onClick={() => setShowLoginsModal(true)}>LOGIN</p>}
                     {!auth && <p className={styles.button} onClick={() => setShowSignupModal(true)}>SIGNUP</p>}
-                    {auth && <p className={styles.button}>LOGOUT</p>}
+                    {auth && <p className={styles.button} onClick={logout}>LOGOUT</p>}
                 </div>
             </div>
         </>
