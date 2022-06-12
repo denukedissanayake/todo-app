@@ -1,6 +1,14 @@
+import { useState, useEffect } from 'react';
 import styles from '../styles/navigation-bar.module.css';
+const { useAuth } = require('../context/auth-context');
 
-const Navbar = ({setShowModal}) => {
+const Navbar = ({ showAddTaskModal, setShowLoginsModal }) => {
+    const { user } = useAuth();
+    const [auth, setAuth] = useState(false)
+
+    useEffect(() => {
+        user ? setAuth(true) : setAuth(false)
+    })
 
     return (
         <>
@@ -9,9 +17,9 @@ const Navbar = ({setShowModal}) => {
                     <h3>ToDo-App</h3>
                 </div>
                 <div className={styles.buttonslist}>
-                    <p className={styles.button} onClick={() => setShowModal(true)}>ADD TASK</p>
-                    <p className={styles.button}>LOGIN</p>
-                    <p className={styles.button}>LOGOUT</p>
+                    {auth && <p className={styles.button} onClick={() => showAddTaskModal(true)}>ADD TASK</p>}
+                    {!auth && <p className={styles.button} onClick={() => setShowLoginsModal(true)}>LOGIN</p>}
+                    {auth && <p className={styles.button}>LOGOUT</p>}
                 </div>
             </div>
         </>

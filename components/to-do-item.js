@@ -1,9 +1,16 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from '../styles/to-do-item.module.css';
 import EditTaskModal from './edit-task-modal';
+const { useAuth } = require('../context/auth-context');
 
 const TodoItem = ({ item, deletetask, changeTaskStatus,fetchTasks }) => {
     const [showEditModal, setShowEditModal] = useState(false);
+    const { user } = useAuth();
+    const [auth, setAuth] = useState(false)
+
+    useEffect(() => {
+        user ? setAuth(true) : setAuth(false)
+    })
 
     return (
         <>
@@ -12,8 +19,8 @@ const TodoItem = ({ item, deletetask, changeTaskStatus,fetchTasks }) => {
                     <label className={styles.taskTitle}>{item.task}</label>
                 </div>
                 <div className={styles.taskAction}>
-                    <button className={styles.taskButton} onClick={() => setShowEditModal(true)}>EDIT</button>
-                    <button className={styles.taskButton} onClick={() => deletetask(item.id)}>DELETE</button>
+                    {auth && <button className={styles.taskButton} onClick={() => setShowEditModal(true)}>EDIT</button>}
+                    {auth && <button className={styles.taskButton} onClick={() => deletetask(item.id)}>DELETE</button>}
                     {item.status === "TODO" && <span className={styles.taskProgress}>
                         <input
                             type="checkbox"
@@ -23,7 +30,7 @@ const TodoItem = ({ item, deletetask, changeTaskStatus,fetchTasks }) => {
                         />
                         START
                     </span>}
-                    {item.status === "DONE" &&<span className={styles.taskProgress}>
+                    {item.status === "DONE" && <span className={styles.taskProgress}>
                         <input
                             type="checkbox"
                             name="status"
@@ -32,7 +39,7 @@ const TodoItem = ({ item, deletetask, changeTaskStatus,fetchTasks }) => {
                         />
                         RE-START
                     </span>}
-                    {item.status === "INGOING" &&<span className={styles.taskProgress}>
+                    {item.status === "INGOING" && <span className={styles.taskProgress}>
                         <input
                             type="checkbox"
                             name="status"

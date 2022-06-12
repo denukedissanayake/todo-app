@@ -3,10 +3,12 @@ import Head from 'next/head';
 import TodoList from '../components/to-do-list';
 import Navbar from '../components/navigation-bar';
 import TaskModal from '../components/task-modal';
+import LoginModal from '../components/login-modal';
 
 export default function Home() {
   const [tasks, setTasks] = useState([])
-  const [showModal, setShowModal] = useState(false);
+  const [showAddTaskModal, setShowAddTaskModal] = useState(false);
+  const [showLoginModal, setShowLoginsModal] = useState(false);
 
   const fetchAllTasks = async () => {
     try {
@@ -28,9 +30,10 @@ export default function Home() {
       <Head>
         <title>Todo | App</title>
       </Head>
-      <Navbar setShowModal={setShowModal} />
+      <Navbar showAddTaskModal={setShowAddTaskModal} setShowLoginsModal={setShowLoginsModal} />
       <TodoList tasks={tasks} fetchTasks={fetchAllTasks} />
-      {showModal && <TaskModal setShowModal={setShowModal} fetchTasks={fetchAllTasks} />}
+      {showAddTaskModal && <TaskModal setShowModal={setShowAddTaskModal} fetchTasks={fetchAllTasks} />}
+      {showLoginModal && <LoginModal setShowLoginsModal={setShowLoginsModal} fetchTasks={fetchAllTasks} />}
     </>
   )
 }
