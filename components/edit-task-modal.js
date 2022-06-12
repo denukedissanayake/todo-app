@@ -1,22 +1,22 @@
 import { useState } from 'react';
 import styles from '../styles/task-modal.module.css';
 
-const TaskModal = ({ setShowModal, fetchTasks }) => {
+const EditTaskModal = ({ item, setShowModal, fetchTasks }) => {
     const [value, setValue] = useState()
 
-    const addNewTask = async () => {
+    const editTask = async (taskId, task) => {
         try {
-            const res = await fetch(`http://localhost:3050/api/task`,
-            {
-                method: 'POST',
+            const res = await fetch(`http://localhost:3050/api/task/${taskId}`, {
+                method: 'PUT',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
-                    task: value
+                    task: task,
                 })
             });
             const data = await res.json();
-            setShowModal(false)
+            console.log(data);
             fetchTasks()
+            setShowModal(false)
         } catch (err) {
             console.log(err);
         }
@@ -27,15 +27,16 @@ const TaskModal = ({ setShowModal, fetchTasks }) => {
             <div className={styles.addItemContainer}>
                 <span className={styles.addItemTitle}>Add New Todo Item</span>
                 <input
-                    placeholder='Add new task'
+                    placeholder='Edit this task'
                     className={styles.addItemInput}
                     onChange={(e) => setValue(e.target.value)}
+                    defaultValue={item.task}
                 />
                 <div className={styles.addItemButtonDiv}>
-                    <button disabled={!value}
-                        onClick={() => addNewTask()}
+                    <button disabled={!value || value === item.task}
+                        onClick={() => editTask(item.id, value)}
                         className={styles.addItemButton}>
-                        ADD
+                        EDIT
                     </button>
                     <button onClick={() => setShowModal(false)} className={styles.addItemButton}>CANCEL</button>
                 </div>
@@ -44,4 +45,4 @@ const TaskModal = ({ setShowModal, fetchTasks }) => {
     )
 }
 
-export default TaskModal;
+export default EditTaskModal;

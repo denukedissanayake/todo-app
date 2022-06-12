@@ -1,42 +1,77 @@
-import {useState} from 'react'
 import styles from '../styles/to-do-list.module.css';
 import TodoItem from '../components/to-do-item';
 
-const TodoList = ({tasks}) => {
-    const [taskList, setTaskList] = useState(tasks)
+const TodoList = ({tasks, fetchTasks }) => {
+    const TODOLIST = tasks.filter(task => task.status === "TODO");
+    const INGOINGLIST = tasks.filter(task => task.status === "INGOING");
+    const DONELIST = tasks.filter(task => task.status === "DONE");
+
+    const deletetask = async (taskId) => {
+        try {
+            const res = await fetch(`http://localhost:3050/api/task/${taskId}`, {
+                method: 'DELETE',
+            });
+            const data = await res.json();
+            console.log(data);
+            fetchTasks()
+        } catch (err) {
+            console.log(err);
+        }
+    };
     
-    const TODOLIST = taskList.filter(task => task.status === "TODO");
-    const INGOINGLIST = taskList.filter(task => task.status === "INGOING");
-    const DONELIST = taskList.filter(task => task.status === "DONE");
-
-
-    const editTask = (editedTask) => {
-        console.log("edited");
-    }
-
-    const deletetask = (taskId) => {
-        const deletedTaskList = taskList.filter(task => task.id !== taskId);
-        setTaskList(deletedTaskList);
-    }
+    const changeTaskStatus = async (taskId, newStatus) => {
+        try {
+            const res = await fetch(`http://localhost:3050/api/task/${taskId}`, {
+                method: 'PUT',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    status: newStatus
+                })
+            });
+            const data = await res.json();
+            console.log(data);
+            fetchTasks()
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
     return (
         <div className={ styles.container }>
             <div className={`${styles.section} ${styles.todo}` }>
                 <p className={styles.sectionTitle}>Todo Tasks</p>
                 {TODOLIST.map(item => (
-                    <TodoItem key={item.id} item={item} editTask={editTask} deletetask={deletetask}/>
+                    <TodoItem
+                        key={item.id}
+                        item={item}
+                        deletetask={deletetask}
+                        changeTaskStatus={changeTaskStatus}
+                        fetchTasks={fetchTasks}
+                    />
                 ))}
             </div>
             <div className={styles.section}>
                 <p className={styles.sectionTitle}>Ongoing Tasks</p>
                 {INGOINGLIST.map(item => (
-                    <TodoItem key={item.id}  item={item} editTask={editTask} deletetask={deletetask}/>
+                    <TodoItem
+                        key={item.id}
+                        item={item}
+                        deletetask={deletetask}
+                        changeTaskStatus={changeTaskStatus}
+                        fetchTasks={fetchTasks}
+                    />
                 ))}
             </div>
             <div className={styles.section}>
                 <p className={styles.sectionTitle}>Completed Tasks</p>
                 {DONELIST.map(item => (
-                    <TodoItem key={item.id}  item={item} editTask={editTask} deletetask={deletetask}/>
+                    <TodoItem
+                        key={item.id}
+                        item={item}
+                        deletetask={deletetask}
+                        changeTaskStatus={changeTaskStatus}
+                        fetchTasks={fetchTasks}
+                    />
                 ))}
             </div>
         </div>

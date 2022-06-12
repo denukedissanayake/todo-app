@@ -1,15 +1,16 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const TaskRoutes = require('./routes/task-routes');
+const UserRoutes = require('./routes/user-routes');
 
 app.use(express.json());
 app.use(cors());
 
 const PORT = 3050;
 
-app.get('/', (req, res) => {
-    res.json("Index.js")
-})
+app.use('/api/task', TaskRoutes);
+app.use('/api/user', UserRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server listening on the port::${PORT}`);
