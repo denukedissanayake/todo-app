@@ -2,14 +2,14 @@ import { useState } from 'react';
 import styles from '../styles/task-modal.module.css';
 const { useAuth } = require('../context/auth-context');
 
-const LoginModal = ({ setShowLoginsModal, fetchTasks }) => {
+const SignupModal = ({ setShowSignupModal, fetchTasks }) => {
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
     const { user, setUser } = useAuth();
 
-    const userLogin = async () => {
+    const userSignup = async () => {
         try {
-            const res = await fetch(`http://localhost:3050/api/user/login`,
+            const res = await fetch(`http://localhost:3050/api/user/signup`,
             {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -21,7 +21,7 @@ const LoginModal = ({ setShowLoginsModal, fetchTasks }) => {
             const data = await res.json();
             console.log(data)
             // setUser({token: data})
-            setShowLoginsModal(false)
+            setShowSignupModal(false)
         } catch (err) {
             console.log(err);
         }
@@ -30,7 +30,7 @@ const LoginModal = ({ setShowLoginsModal, fetchTasks }) => {
     return (
         <div className={styles.modalContainer}>
             <div className={styles.addItemContainer}>
-                <span className={styles.addItemTitle}>Login</span>
+                <span className={styles.addItemTitle}>Signup</span>
                 <input
                     placeholder='Enter Email'
                     className={styles.addItemInput}
@@ -43,15 +43,15 @@ const LoginModal = ({ setShowLoginsModal, fetchTasks }) => {
                 />
                 <div className={styles.addItemButtonDiv}>
                     <button disabled={!username || !password}
-                        onClick={() => userLogin()}
+                        onClick={() => userSignup()}
                         className={styles.addItemButton}>
-                        LOGIN
+                        SIGNUP
                     </button>
-                    <button onClick={() => setShowLoginsModal(false)} className={styles.addItemButton}>CANCEL</button>
+                    <button onClick={() => setShowSignupModal(false)} className={styles.addItemButton}>CANCEL</button>
                 </div>
             </div>
         </div>
     )
 }
 
-export default LoginModal;
+export default SignupModal;

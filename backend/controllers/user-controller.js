@@ -23,6 +23,20 @@ const login = async (req, res) => {
     })
 }
 
+const signup = async (req, res) => {
+    const user = {
+        username: req.body.username,
+        password: req.body.password,
+    }
+
+    models.User.create(user).then(result => {
+        res.json("CREATED").status(201)
+    }).catch(err => {
+        res.json("ERROR").status(500)
+    })
+}
+
 module.exports = {
-    login
+    login,
+    signup
 }
