@@ -1,7 +1,10 @@
 import styles from '../styles/to-do-list.module.css';
 import TodoItem from '../components/to-do-item';
+const { useAuth } = require('../context/auth-context');
 
-const TodoList = ({tasks, fetchTasks }) => {
+const TodoList = ({ tasks, fetchTasks }) => {
+    const { user } = useAuth();
+
     const TODOLIST = tasks.filter(task => task.status === "TODO");
     const INGOINGLIST = tasks.filter(task => task.status === "INGOING");
     const DONELIST = tasks.filter(task => task.status === "DONE");
@@ -10,6 +13,10 @@ const TodoList = ({tasks, fetchTasks }) => {
         try {
             const res = await fetch(`http://localhost:3050/api/task/${taskId}`, {
                 method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': `bearer ${user.token}`
+                },
             });
             const data = await res.json();
             console.log(data);
@@ -23,7 +30,10 @@ const TodoList = ({tasks, fetchTasks }) => {
         try {
             const res = await fetch(`http://localhost:3050/api/task/${taskId}`, {
                 method: 'PUT',
-                headers: {'Content-Type': 'application/json'},
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': `bearer ${user.token}`
+                },
                 body: JSON.stringify({
                     status: newStatus
                 })

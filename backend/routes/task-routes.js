@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const taskController = require('../controllers/task-controller')
+const taskController = require('../controllers/task-controller');
+const { VerifyToken } = require('../utils/auth-middleware');
 
 router.get('/', taskController.getAllTasks);
-router.post('/', taskController.addTask);
-router.put('/:id', taskController.editTask);
-router.delete('/:id', taskController.deleteTask);
+router.post('/', VerifyToken, taskController.addTask);
+router.put('/:id', VerifyToken, taskController.editTask);
+router.delete('/:id', VerifyToken, taskController.deleteTask);
 
 module.exports = router

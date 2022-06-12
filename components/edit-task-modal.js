@@ -1,14 +1,19 @@
 import { useState } from 'react';
 import styles from '../styles/task-modal.module.css';
+const { useAuth } = require('../context/auth-context');
 
 const EditTaskModal = ({ item, setShowModal, fetchTasks }) => {
     const [value, setValue] = useState()
+    const { user } = useAuth();
 
     const editTask = async (taskId, task) => {
         try {
             const res = await fetch(`http://localhost:3050/api/task/${taskId}`, {
                 method: 'PUT',
-                headers: {'Content-Type': 'application/json'},
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': `bearer ${user.token}`
+                },
                 body: JSON.stringify({
                     task: task,
                 })
