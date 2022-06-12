@@ -28,11 +28,10 @@ const TodoList = ({ tasks, fetchTasks }) => {
     
     const changeTaskStatus = async (taskId, newStatus) => {
         try {
-            const res = await fetch(`http://localhost:3050/api/task/${taskId}`, {
+            const res = await fetch(`http://localhost:3050/api/task/status/${taskId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    'authorization': `bearer ${user.token}`
                 },
                 body: JSON.stringify({
                     status: newStatus

@@ -8,7 +8,7 @@ const EditTaskModal = ({ item, setShowModal, fetchTasks }) => {
 
     const editTask = async (taskId, task) => {
         try {
-            const res = await fetch(`http://localhost:3050/api/task/${taskId}`, {
+            const res = await fetch(`http://localhost:3050/api/task/task/${taskId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

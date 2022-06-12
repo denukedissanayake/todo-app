@@ -22,7 +22,7 @@ const addTask = async (req, res) => {
 
 const editTask = async (req, res) => {
   const {id} = req.params
-  const { task, status } = req.body;
+  const { task } = req.body;
   
   let updatedTask = {}
   if (task) {
@@ -30,6 +30,21 @@ const editTask = async (req, res) => {
       task: task
     }
   }
+  
+  models.Task.update(updatedTask, { where: { id: id } })
+    .then(result => {
+      res.json("UPDATED").status(200)
+    }).catch(err => {
+      res.json("ERROR").status(500)
+    }
+  )
+}
+
+const changeStatus = async (req, res) => {
+  const {id} = req.params
+  const { status } = req.body;
+  
+  let updatedTask = {}
   if (status) {
     updatedTask = {
       status: status
@@ -38,7 +53,7 @@ const editTask = async (req, res) => {
   
   models.Task.update(updatedTask, { where: { id: id } })
     .then(result => {
-      res.json("UPDATED").status(200)
+      res.json("CHANGED").status(200)
     }).catch(err => {
       res.json("ERROR").status(500)
     }
@@ -56,8 +71,9 @@ const deleteTask = async (req, res) => {
 }
 
 module.exports = {
-    getAllTasks,
-    editTask,
-    deleteTask,
-    addTask
+  getAllTasks,
+  editTask,
+  deleteTask,
+  addTask,
+  changeStatus
 }
