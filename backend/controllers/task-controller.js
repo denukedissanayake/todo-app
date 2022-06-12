@@ -1,58 +1,58 @@
-let tasksList = [
-    {
-      id: "1",
-      task: "Complete the task before Tuesday",
-      status: "TODO",
-    },
-    {
-      id: "2",
-      task: "Go shopping",
-      status: "INGOING",
-    },
-    {
-      id: "3",
-      task: "Buy Milk",
-      status: "DONE",
-    },
-    {
-      id: "4",
-      task: "Study for the end Exam",
-      status: "TODO",
-    },
-]
+const models = require('../models');
 
 const getAllTasks = async (req, res) => {
-    res.json(tasksList).status(200)
+  models.Task.findAll().then(result => {
+    res.json(result).status(200)
+  }).catch(err => {
+    res.json('ERROR').status(500)
+  })
 }
 
 const addTask = async (req, res) => {
-    const newtask = {
-        id: Math.random() * 10,
-        task: req.body.task,
-        status : "TODO"
-    }
-    
-    tasksList.push(newtask)
-    res.json(tasksList).status(200)
+  const newtask = {
+      task: req.body.task,
+      status : "TODO"
+  }
+  models.Task.create(newtask).then(result => {
+      return res.json("ADDED").status(201)
+  }).catch(err => {
+      return res.json("ERROR").status(500)
+  })
 }
 
 const editTask = async (req, res) => {
-    const {id} = req.params
-    const { task, status } = req.body;
-    const updatedtaskIndex = tasksList.findIndex(task => task.id === id)
-    if (task) {
-      tasksList[updatedtaskIndex].task = task
+  const {id} = req.params
+  const { task, status } = req.body;
+  
+  let updatedTask = {}
+  if (task) {
+    updatedTask = {
+      task: task
     }
-    if (status) {
-      tasksList[updatedtaskIndex].status = status
+  }
+  if (status) {
+    updatedTask = {
+      status: status
     }
-    res.json(tasksList[updatedtaskIndex]).status(200)
+  }
+  
+  models.Task.update(updatedTask, { where: { id: id } })
+    .then(result => {
+      res.json("UPDATED").status(200)
+    }).catch(err => {
+      res.json("ERROR").status(500)
+    }
+  )
 }
 
 const deleteTask = async (req, res) => {
-    const { id } = req.params
-    tasksList = tasksList.filter(task => task.id !== id)
-    res.json("Item deleted").status(200)
+  const { id } = req.params
+  models.Task.destroy({ where: { id: id } })
+    .then(result => {
+      res.json("DELETED").status(200);
+    }).catch(err => {
+      res.json("ERROR").status(500);
+    })
 }
 
 module.exports = {

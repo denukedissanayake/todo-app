@@ -3,7 +3,7 @@ import styles from '../styles/task-modal.module.css';
 const { useAuth } = require('../context/auth-context');
 
 const LoginModal = ({ setShowLoginsModal, fetchTasks }) => {
-    const [email, setEmail] = useState();
+    const [username, setUsername] = useState();
     const [password, setPassword] = useState();
     const { user, setUser } = useAuth();
 
@@ -14,12 +14,13 @@ const LoginModal = ({ setShowLoginsModal, fetchTasks }) => {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
-                    email: email,
+                    username: username,
                     password: password
                 })
             });
             const data = await res.json();
-            setUser({token: data})
+            console.log(data)
+            // setUser({token: data})
             setShowLoginsModal(false)
         } catch (err) {
             console.log(err);
@@ -33,7 +34,7 @@ const LoginModal = ({ setShowLoginsModal, fetchTasks }) => {
                 <input
                     placeholder='Enter Email'
                     className={styles.addItemInput}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => setUsername(e.target.value)}
                 />
                 <input
                     placeholder='Enter Password'
@@ -41,7 +42,7 @@ const LoginModal = ({ setShowLoginsModal, fetchTasks }) => {
                     onChange={(e) => setPassword(e.target.value)}
                 />
                 <div className={styles.addItemButtonDiv}>
-                    <button disabled={!email || !password}
+                    <button disabled={!username || !password}
                         onClick={() => userLogin()}
                         className={styles.addItemButton}>
                         LOGIN

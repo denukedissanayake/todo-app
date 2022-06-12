@@ -15,6 +15,7 @@ const TaskModal = ({ setShowModal, fetchTasks }) => {
                 })
             });
             const data = await res.json();
+            console.log(data)
             setShowModal(false)
             fetchTasks()
         } catch (err) {

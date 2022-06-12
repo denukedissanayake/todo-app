@@ -13,7 +13,7 @@ export default function Home() {
   const fetchAllTasks = async () => {
     try {
         const res = await fetch(`http://localhost:3050/api/task`);
-        console.log(res)
+        // console.log(res)
         const data = await res.json();
         setTasks(data)
     } catch (err) {
