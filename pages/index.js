@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react'
 import Head from 'next/head';
+import styles from '../styles/index.module.css';
 import TodoList from '../components/to-do-list';
 import Navbar from '../components/navigation-bar';
 import TaskModal from '../components/task-modal';
@@ -17,9 +18,7 @@ export default function Home() {
         const res = await fetch(`http://localhost:3050/api/task`);
         const data = await res.json();
         setTasks(data)
-    } catch (err) {
-        console.log(err);
-    }
+    } catch (err) {}
   };
     
   useEffect(() => {
@@ -32,7 +31,9 @@ export default function Home() {
         <title>Todo | App</title>
       </Head>
       <Navbar showAddTaskModal={setShowAddTaskModal} setShowLoginsModal={setShowLoginsModal} setShowSignupModal={setShowSignupModal}/>
-      <TodoList tasks={tasks} fetchTasks={fetchAllTasks} />
+      {tasks.length > 0 ?
+        <TodoList tasks={tasks} fetchTasks={fetchAllTasks} /> :
+        <p className={styles.noTaskMessage}>No tasks available. Please add tasks</p>}
       {showAddTaskModal && <TaskModal setShowModal={setShowAddTaskModal} fetchTasks={fetchAllTasks} />}
       {showLoginModal && <LoginModal setShowLoginsModal={setShowLoginsModal} fetchTasks={fetchAllTasks} />}
       {showSignupModal && <SignupModal setShowSignupModal={setShowSignupModal} fetchTasks={fetchAllTasks} />}
