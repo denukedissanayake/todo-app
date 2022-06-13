@@ -1,34 +1,48 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+#### How to run the Application
 
-## Getting Started
+First, clone the repo(https://github.com/denukedissanayake/todo-app):
 
-First, run the development server:
+Open the project from the text editor. Open one terminal in the project root directory and other terminal in the backend directory('backend' directory contains REAST-API code base)
+Install the dependancies in both directories using 
+Add .env.local file in the project root directory and .env file in the backend directory
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+#### Databse Migartion
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Create a MySQL databse in the local environment (Database name - database_todo_app) or create a database and add the database name in the backend/config/config.json file
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+```{
+  "development": {
+    "database": "<Databse_name>",
+  }
+}```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+Enter the username and password of the MySQL database for root accesse
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```{
+  "development": {
+    "username": "<username>",
+    "password": "<password>",
+  }
+}```
 
-## Learn More
+Run the command ```sequelize db:migrate``` in the terminal open in the backend directory. This will deploy the database tables to the created database. (If 'error: -bash: sequelize: command not found' comes try install sequelize globally ```npm install -g sequelize-cli```)
 
-To learn more about Next.js, take a look at the following resources:
+TO add intial set of values to database run command ```sequelize db:seed:all```. (This is not mandetory. A user can be created and taska can be added)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+#### Run the Application
 
-## Deploy on Vercel
+Terminal in project 'backend' directory ```npm run start:dev```
+Terminal in project root directory ```npm run dev```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+#### Run Test Cases
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Terminal in project root directory ```npm run test```
+
+
+#### To-Do Application 
+
+User can signup & login/logout
+Only loggedin user can Add, Edit or Delete a task
+Non-Logged users can view tasks and change task status 
+
