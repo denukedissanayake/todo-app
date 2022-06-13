@@ -42,11 +42,13 @@ const LoginModal = ({ setShowLoginsModal }) => {
                     placeholder='Enter Email'
                     className={styles.addItemInput}
                     onChange={(e) => setUsername(e.target.value)}
+                    data-testid="login-email-input"
                 />
                 <input
                     placeholder='Enter Password'
                     className={styles.addItemInput}
                     onChange={(e) => setPassword(e.target.value)}
+                    data-testid="login-password-input"
                 />
                 {error && <span className={styles.errorMessage}>{error}</span>}
                 <div className={styles.addItemButtonDiv}>

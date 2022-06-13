@@ -46,6 +46,7 @@ const TaskModal = ({ setShowModal, fetchTasks }) => {
                     placeholder='Add new task'
                     className={styles.addItemInput}
                     onChange={(e) => setValue(e.target.value)}
+                    data-testid="add-task-input"
                 />
                  {error && <span className={styles.errorMessage}>{error}</span>}
                 <div className={styles.addItemButtonDiv}>
