@@ -2,12 +2,19 @@ import { useState } from 'react';
 import styles from '../styles/task-modal.module.css';
 const { useAuth } = require('../context/auth-context');
 
+  /* 
+    User Login modal
+  */
+
 const LoginModal = ({ setShowLoginsModal }) => {
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
     const { user, setUser } = useAuth();
     const [ error, setError ] = useState(undefined);
 
+    /* 
+        Data function to Login users
+    */
     const userLogin = async () => {
         try {
             const res = await fetch(`${process.env.API_END_POINT}user/login`,
@@ -20,6 +27,9 @@ const LoginModal = ({ setShowLoginsModal }) => {
                 })
             });
             const data = await res.json();
+            /* 
+                Set user token to context if login is succesfull
+            */
             if (data !== "NOT-FOUND" && data !== "INVALID-PASSWORD" && data !== "ERROR") {
                 setUser({token: data})
                 setShowLoginsModal(false)

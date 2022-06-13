@@ -2,12 +2,20 @@ import styles from '../styles/to-do-list.module.css';
 import TodoItem from '../components/to-do-item';
 const { useAuth } = require('../context/auth-context');
 
+  /* 
+    Todo List component display all the available tasks 
+  */
+
 const TodoList = ({ tasks, fetchTasks }) => {
     const { user } = useAuth();
 
     const TODOLIST = tasks.filter(task => task.status === "TODO");
     const INGOINGLIST = tasks.filter(task => task.status === "INGOING");
     const DONELIST = tasks.filter(task => task.status === "DONE");
+
+    /* 
+        Data function to delete tasks from the Database
+    */
 
     const deletetask = async (taskId) => {
         try {
@@ -22,6 +30,10 @@ const TodoList = ({ tasks, fetchTasks }) => {
             if(data === "DELETED") fetchTasks()
         } catch (err) {}
     };
+
+    /* 
+        Data function to change the task's status START --> INGOING --> DONE --> RE-START from the Database
+    */
     
     const changeTaskStatus = async (taskId, newStatus) => {
         try {

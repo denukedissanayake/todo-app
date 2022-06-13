@@ -1,4 +1,8 @@
 'use strict';
+
+/* 
+  Database migration file for Tasks
+*/
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Tasks', {

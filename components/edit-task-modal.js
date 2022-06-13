@@ -2,11 +2,18 @@ import { useState } from 'react';
 import styles from '../styles/task-modal.module.css';
 const { useAuth } = require('../context/auth-context');
 
+/* 
+    Edit task modal
+*/
 const EditTaskModal = ({ item, setShowModal, fetchTasks }) => {
     const [value, setValue] = useState()
     const { user } = useAuth();
-    const [ error, setError ] = useState(undefined);
+    const [error, setError] = useState(undefined);
+    
 
+    /* 
+        Data function to edit task in the database
+    */
     const editTask = async (taskId, task) => {
         try {
             const res = await fetch(`${process.env.API_END_POINT}task/task/${taskId}`, {

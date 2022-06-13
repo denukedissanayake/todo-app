@@ -1,20 +1,15 @@
 'use strict';
 
+/* 
+  Database migration seeder file for Users
+*/
+
 module.exports = {
   async up (queryInterface, Sequelize) {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
-     await queryInterface.bulkInsert('users', [
+    await queryInterface.bulkInsert('users', [
       {
         username: 'user',
-        password: 'user',
+        password: '$10$ab29792Ckj8FsyZg6a7i6uEwZpvL9.4j5W7IGk3GiDT0SxMv1Wq4K',
         createdAt: new Date(),
         updatedAt: new Date()
       }
@@ -22,12 +17,6 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
-     await queryInterface.bulkDelete('users', null, {});
+    await queryInterface.bulkDelete('users', null, {});
   }
 };

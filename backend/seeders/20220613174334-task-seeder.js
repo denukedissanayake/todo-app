@@ -1,5 +1,8 @@
 'use strict';
 
+/* 
+  Database migration seeder file for Tasks
+*/
 module.exports = {
   async up (queryInterface, Sequelize) {
     /**

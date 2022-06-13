@@ -1,5 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
+/* 
+    Auth context provider
+*/
 const AuthContext = createContext({});
 
 export const AuthContextProvider = ({ children }) => {
@@ -11,6 +14,9 @@ export const AuthContextProvider = ({ children }) => {
         }
     }); 
 
+    /* 
+        Save the user token to local storage when token is changed
+    */
     useEffect(() => {
         user && localStorage.setItem('user' , JSON.stringify(user))
     }, [user])
@@ -23,7 +29,9 @@ export const AuthContextProvider = ({ children }) => {
     )
 }
 
+/* 
+    Custom hook to set and get token from context
+*/
 export const useAuth = () => {
-    const context = useContext(AuthContext);
-    return context;
+    return useContext(AuthContext);
 }

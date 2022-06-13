@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import styles from '../styles/navigation-bar.module.css';
 const { useAuth } = require('../context/auth-context');
 
+  /* 
+    Navigation-bar component
+  */
 const Navbar = ({ showAddTaskModal, setShowLoginsModal, setShowSignupModal }) => {
     const { user, setUser } = useAuth();
     const [auth, setAuth] = useState(false)
@@ -9,6 +12,10 @@ const Navbar = ({ showAddTaskModal, setShowLoginsModal, setShowSignupModal }) =>
     useEffect(() => {
         user ? setAuth(true) : setAuth(false)
     })
+
+    /* 
+        Removes user from Local Storage when logout & set user context to undefined
+    */
 
     const logout = () => {
         localStorage.removeItem('user');

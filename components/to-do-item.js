@@ -3,6 +3,10 @@ import styles from '../styles/to-do-item.module.css';
 import EditTaskModal from './edit-task-modal';
 const { useAuth } = require('../context/auth-context');
 
+  /* 
+    Single Todo Item
+  */
+
 const TodoItem = ({ item, deletetask, changeTaskStatus, fetchTasks }) => {
     const [showEditModal, setShowEditModal] = useState(false);
     const { user } = useAuth();

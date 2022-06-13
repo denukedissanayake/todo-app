@@ -1,4 +1,7 @@
 'use strict';
+/* 
+  Database migration file for Users
+*/
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Users', {

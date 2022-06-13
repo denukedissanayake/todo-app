@@ -13,6 +13,9 @@ export default function Home() {
   const [showLoginModal, setShowLoginsModal] = useState(false);
   const [showSignupModal, setShowSignupModal] = useState(false);
 
+  /* 
+    Data function to fetch all the tasks from the Database
+  */
   const fetchAllTasks = async () => {
     try {
         const res = await fetch(`${process.env.API_END_POINT}task`);

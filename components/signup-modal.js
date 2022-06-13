@@ -1,12 +1,18 @@
 import { useState } from 'react';
 import styles from '../styles/task-modal.module.css';
 
+  /* 
+    User Signup modal
+  */
 const SignupModal = ({ setShowSignupModal }) => {
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
     const [error, setError] = useState(undefined);
     const [success, setSuccess] = useState(undefined);
 
+    /* 
+        Data function to Signup users
+    */
     const userSignup = async () => {
         try {
             const res = await fetch(`${process.env.API_END_POINT}user/signup`,

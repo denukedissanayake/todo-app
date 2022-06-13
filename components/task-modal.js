@@ -2,10 +2,18 @@ import { useState } from 'react';
 import styles from '../styles/task-modal.module.css';
 const { useAuth } = require('../context/auth-context');
 
+  /* 
+    Task modak to add a new task
+  */
+
 const TaskModal = ({ setShowModal, fetchTasks }) => {
     const [value, setValue] = useState();
     const { user, setUser } = useAuth();
-    const [ error, setError ] = useState(undefined);
+    const [error, setError] = useState(undefined);
+    
+    /* 
+        Data function to add a new task to the Database
+    */
 
     const addNewTask = async () => {
         try {
