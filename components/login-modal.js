@@ -27,9 +27,10 @@ const LoginModal = ({ setShowLoginsModal, fetchTasks }) => {
                 if (data === "NOT-FOUND") setError("Please check your username")
                 else if (data === "INVALID-PASSWORD") setError("Invaild password")
                 else setError("Error occurred")
+                return
             }
         } catch (err) {
-            console.log(err);
+            setError("Error occurred");
         }
     };
 

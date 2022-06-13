@@ -64,3 +64,10 @@
     border-radius: 5px;
     font-weight: 600;
 }
+.loginSuccess {
+    margin: 10px auto;
+    background-color: lightseagreen;
+    padding: 5px;
+    border-radius: 5px;
+    font-weight: 600;
+}

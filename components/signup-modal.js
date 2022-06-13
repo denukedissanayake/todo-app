@@ -6,6 +6,8 @@ const SignupModal = ({ setShowSignupModal, fetchTasks }) => {
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
     const { user, setUser } = useAuth();
+    const [error, setError] = useState(undefined);
+    const [success, setSuccess] = useState(undefined);
 
     const userSignup = async () => {
         try {
@@ -19,11 +21,17 @@ const SignupModal = ({ setShowSignupModal, fetchTasks }) => {
                 })
             });
             const data = await res.json();
-            console.log(data)
-            // setUser({token: data})
-            setShowSignupModal(false)
+            if (data === "CREATED") {
+                setSuccess(true)
+                setTimeout(() => {
+                    setShowSignupModal(false)
+                }, 1000)
+            } else {
+                if (data === "ERROR") setError("Error occurred")
+                return
+            }
         } catch (err) {
-            console.log(err);
+            setError("Error occurred");
         }
     };
 
@@ -41,6 +49,8 @@ const SignupModal = ({ setShowSignupModal, fetchTasks }) => {
                     className={styles.addItemInput}
                     onChange={(e) => setPassword(e.target.value)}
                 />
+                {error && <span className={styles.loginError}>{error}</span>}
+                {success && <span className={styles.loginSuccess}>Signup Successfull</span>}
                 <div className={styles.addItemButtonDiv}>
                     <button disabled={!username || !password}
                         onClick={() => userSignup()}
