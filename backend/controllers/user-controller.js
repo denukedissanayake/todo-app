@@ -10,7 +10,7 @@ const login = async (req, res) => {
             if (result.password === req.body.password) {
                 const accesToken = jwt.sign({
                     username: req.body.username
-                }, "Secret", {
+                }, process.env.JWT_SECRET, {
                     expiresIn : "1d"
                 })
                 return res.json(accesToken).status(200)

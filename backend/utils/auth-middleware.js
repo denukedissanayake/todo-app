@@ -9,7 +9,7 @@ const VerifyToken = (req, res, next) => {
     }
 
     if (token) {
-        jwt.verify(token, "Secret", (error ,user) => {
+        jwt.verify(token, process.env.JWT_SECRET, (error ,user) => {
             if (error) {
                 return res.json("INVALID-TOKEN").status(403);
             }
