@@ -3,8 +3,9 @@ import styles from '../styles/task-modal.module.css';
 const { useAuth } = require('../context/auth-context');
 
 const TaskModal = ({ setShowModal, fetchTasks }) => {
-    const [value, setValue] = useState()
+    const [value, setValue] = useState();
     const { user, setUser } = useAuth();
+    const [ error, setError ] = useState(undefined);
 
     const addNewTask = async () => {
         try {
@@ -20,11 +21,20 @@ const TaskModal = ({ setShowModal, fetchTasks }) => {
                 })
             });
             const data = await res.json();
-            console.log(data)
-            setShowModal(false)
-            fetchTasks()
+            if (data === "ADDED") {
+                fetchTasks()
+                setShowModal(false)
+            } else {
+                setError("Error occurred")
+                setTimeout(() => {
+                    setShowModal(false)
+                }, 1000)
+            }
         } catch (err) {
-            console.log(err);
+            setError("Error occurred")
+            setTimeout(() => {
+                setShowModal(false)
+            }, 1000)
         }
     };
 
@@ -37,6 +47,7 @@ const TaskModal = ({ setShowModal, fetchTasks }) => {
                     className={styles.addItemInput}
                     onChange={(e) => setValue(e.target.value)}
                 />
+                 {error && <span className={styles.errorMessage}>{error}</span>}
                 <div className={styles.addItemButtonDiv}>
                     <button disabled={!value}
                         onClick={() => addNewTask()}

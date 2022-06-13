@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styles from '../styles/task-modal.module.css';
 const { useAuth } = require('../context/auth-context');
 
-const LoginModal = ({ setShowLoginsModal, fetchTasks }) => {
+const LoginModal = ({ setShowLoginsModal }) => {
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
     const { user, setUser } = useAuth();
@@ -48,7 +48,7 @@ const LoginModal = ({ setShowLoginsModal, fetchTasks }) => {
                     className={styles.addItemInput}
                     onChange={(e) => setPassword(e.target.value)}
                 />
-                {error && <span className={styles.loginError}>{error}</span>}
+                {error && <span className={styles.errorMessage}>{error}</span>}
                 <div className={styles.addItemButtonDiv}>
                     <button disabled={!username || !password}
                         onClick={() => userLogin()}

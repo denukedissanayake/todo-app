@@ -5,6 +5,7 @@ const { useAuth } = require('../context/auth-context');
 const EditTaskModal = ({ item, setShowModal, fetchTasks }) => {
     const [value, setValue] = useState()
     const { user } = useAuth();
+    const [ error, setError ] = useState(undefined);
 
     const editTask = async (taskId, task) => {
         try {
@@ -19,11 +20,20 @@ const EditTaskModal = ({ item, setShowModal, fetchTasks }) => {
                 })
             });
             const data = await res.json();
-            console.log(data);
-            fetchTasks()
-            setShowModal(false)
+            if (data === "UPDATED") {
+                fetchTasks()
+                setShowModal(false)
+            } else {
+                setError("Error occurred")
+                setTimeout(() => {
+                    setShowModal(false)
+                }, 1000)
+            }
         } catch (err) {
-            console.log(err);
+            setError("Error occurred")
+            setTimeout(() => {
+                setShowModal(false)
+            }, 1000)
         }
     };
 
@@ -37,6 +47,7 @@ const EditTaskModal = ({ item, setShowModal, fetchTasks }) => {
                     onChange={(e) => setValue(e.target.value)}
                     defaultValue={item.task}
                 />
+                {error && <span className={styles.errorMessage}>{error}</span>}
                 <div className={styles.addItemButtonDiv}>
                     <button disabled={!value || value === item.task}
                         onClick={() => editTask(item.id, value)}

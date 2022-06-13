@@ -19,11 +19,8 @@ const TodoList = ({ tasks, fetchTasks }) => {
                 },
             });
             const data = await res.json();
-            console.log(data);
-            fetchTasks()
-        } catch (err) {
-            console.log(err);
-        }
+            if(data === "DELETED") fetchTasks()
+        } catch (err) {}
     };
     
     const changeTaskStatus = async (taskId, newStatus) => {
@@ -38,11 +35,8 @@ const TodoList = ({ tasks, fetchTasks }) => {
                 })
             });
             const data = await res.json();
-            console.log(data);
-            fetchTasks()
-        } catch (err) {
-            console.log(err);
-        }
+            if(data === "CHANGED") fetchTasks()    
+        } catch (err) {}
     };
 
     return (

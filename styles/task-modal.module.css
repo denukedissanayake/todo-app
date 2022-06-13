@@ -57,14 +57,14 @@
     align-items: center;
 }
 
-.loginError {
+.errorMessage {
     margin: 10px auto;
     background-color: lightcoral;
     padding: 5px;
     border-radius: 5px;
     font-weight: 600;
 }
-.loginSuccess {
+.successMessage {
     margin: 10px auto;
     background-color: lightseagreen;
     padding: 5px;
