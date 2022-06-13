@@ -10,20 +10,24 @@ Add .env.local file in the project root directory and .env file in the backend d
 
 Create a MySQL databse in the local environment (Database name - database_todo_app) or create a database and add the database name in the backend/config/config.json file
 
-```{
+```
+{
   "development": {
     "database": "<Databse_name>",
   }
-}```
+}
+```
 
 Enter the username and password of the MySQL database for root accesse
 
-```{
+```
+{
   "development": {
     "username": "<username>",
     "password": "<password>",
   }
-}```
+}
+```
 
 Run the command ```sequelize db:migrate``` in the terminal open in the backend directory. This will deploy the database tables to the created database. (If 'error: -bash: sequelize: command not found' comes try install sequelize globally ```npm install -g sequelize-cli```)
 
