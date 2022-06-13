@@ -6,6 +6,7 @@ const LoginModal = ({ setShowLoginsModal, fetchTasks }) => {
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
     const { user, setUser } = useAuth();
+    const [ error, setError ] = useState(undefined);
 
     const userLogin = async () => {
         try {
@@ -19,8 +20,14 @@ const LoginModal = ({ setShowLoginsModal, fetchTasks }) => {
                 })
             });
             const data = await res.json();
-            setUser({token: data})
-            setShowLoginsModal(false)
+            if (data !== "NOT-FOUND" && data !== "INVALID-PASSWORD" && data !== "ERROR") {
+                setUser({token: data})
+                setShowLoginsModal(false)
+            } else {
+                if (data === "NOT-FOUND") setError("Please check your username")
+                else if (data === "INVALID-PASSWORD") setError("Invaild password")
+                else setError("Error occurred")
+            }
         } catch (err) {
             console.log(err);
         }
@@ -40,6 +47,7 @@ const LoginModal = ({ setShowLoginsModal, fetchTasks }) => {
                     className={styles.addItemInput}
                     onChange={(e) => setPassword(e.target.value)}
                 />
+                {error && <span className={styles.loginError}>{error}</span>}
                 <div className={styles.addItemButtonDiv}>
                     <button disabled={!username || !password}
                         onClick={() => userLogin()}
