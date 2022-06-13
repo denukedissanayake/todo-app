@@ -9,7 +9,7 @@ const TaskModal = ({ setShowModal, fetchTasks }) => {
 
     const addNewTask = async () => {
         try {
-            const res = await fetch(`http://localhost:3050/api/task`,
+            const res = await fetch(`${process.env.API_END_POINT}task`,
             {
                 method: 'POST',
                 headers: {

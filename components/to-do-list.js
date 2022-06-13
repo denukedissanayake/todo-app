@@ -11,7 +11,7 @@ const TodoList = ({ tasks, fetchTasks }) => {
 
     const deletetask = async (taskId) => {
         try {
-            const res = await fetch(`http://localhost:3050/api/task/${taskId}`, {
+            const res = await fetch(`${process.env.API_END_POINT}task/${taskId}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -25,7 +25,7 @@ const TodoList = ({ tasks, fetchTasks }) => {
     
     const changeTaskStatus = async (taskId, newStatus) => {
         try {
-            const res = await fetch(`http://localhost:3050/api/task/status/${taskId}`, {
+            const res = await fetch(`${process.env.API_END_POINT}task/status/${taskId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

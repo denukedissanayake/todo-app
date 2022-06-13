@@ -9,7 +9,7 @@ const SignupModal = ({ setShowSignupModal }) => {
 
     const userSignup = async () => {
         try {
-            const res = await fetch(`http://localhost:3050/api/user/signup`,
+            const res = await fetch(`${process.env.API_END_POINT}user/signup`,
             {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},

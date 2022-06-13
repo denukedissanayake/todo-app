@@ -10,7 +10,7 @@ const LoginModal = ({ setShowLoginsModal }) => {
 
     const userLogin = async () => {
         try {
-            const res = await fetch(`http://localhost:3050/api/user/login`,
+            const res = await fetch(`${process.env.API_END_POINT}user/login`,
             {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
