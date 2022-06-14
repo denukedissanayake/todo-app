@@ -33,7 +33,7 @@ Enter the username and password of the MySQL database for root access
 
 Run the command ```sequelize db:migrate``` in the terminal open in the backend directory. This will deploy the database tables to the created database. (If 'error: -bash: sequelize: command not found' comes try install sequelize globally ```npm install -g sequelize-cli```)
 
-To add intial set of values to database run command ```sequelize db:seed:all```. (This is not mandetory. A user can be created and then tasks can be added using the application)
+To add intial set of values to database run command ```sequelize db:seed --seed 20220613174334-task-seeder```. (This is not mandetory. A user can be created and then tasks can be added using the application). 
 
 
 #### Run the Application
@@ -47,9 +47,9 @@ Terminal in project root directory ```npm run dev```
 Terminal in project root directory ```npm run test```
 
 
-#### To-Do Application 
+#### How to use the application
 
-User can signup & login/logout
+First Signup the user and then Login (If initial values are added as pervious steps, will be able to see some task even before signup)
 
 Only loggedin user can Add, Edit or Delete a task
 
